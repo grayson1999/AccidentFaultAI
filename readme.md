@@ -24,16 +24,12 @@
 
 ## 데이터 설명
 
-- AI HUB
-    
-    [AI-Hub](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=&topMenu=&aihubDataSe=data&dataSetSn=597)
+- [AI-Hub](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=&topMenu=&aihubDataSe=data&dataSetSn=597)
     
     - 데이터 설명서
-        [1-56 교통사고 영상 데이터_데이터설명서_v1.0.pdf](./asset/1-56%20교통사고%20영상%20데이터_데이터설명서_v1.0.pdf)
-        
-        - 데이터 사고유형별 index
-            
-            [Incident_Type_Classification_Table.csv](./asset/Incident_Type_Classification_Table.csv)
+    <br>[1-56 교통사고 영상 데이터_데이터설명서_v1.0.pdf](./asset/1-56%20교통사고%20영상%20데이터_데이터설명서_v1.0.pdf)
+    - 데이터 사고유형별 index
+    <br>[Incident_Type_Classification_Table.csv](./asset/Incident_Type_Classification_Table.csv)
 
 ## Version Control
 
