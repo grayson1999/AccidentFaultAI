@@ -19,7 +19,7 @@ RUN pip install mmcv-full==latest+torch1.6.0+cu101 -f https://download.openmmlab
 
 # Install MMAction2
 RUN conda clean --all
-RUN git clone https://github.com/open-mmlab/mmaction2.git /mmaction2
+COPY ../../video-Swin-Transformer /mmaction2
 WORKDIR /mmaction2
 RUN mkdir -p /mmaction2/data
 ENV FORCE_CUDA="1"

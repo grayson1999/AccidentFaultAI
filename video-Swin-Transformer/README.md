@@ -1,154 +1,354 @@
-# Video Swin Transformer
+해당 프로그램은 [Video-Swin-Transformer](https://github.com/SwinTransformer/Video-Swin-Transformer)를 참고하여 제작했습니다.
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/video-swin-transformer/action-classification-on-kinetics-400)](https://paperswithcode.com/sota/action-classification-on-kinetics-400?p=video-swin-transformer)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/video-swin-transformer/action-classification-on-kinetics-600)](https://paperswithcode.com/sota/action-classification-on-kinetics-600?p=video-swin-transformer)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/video-swin-transformer/action-recognition-in-videos-on-something)](https://paperswithcode.com/sota/action-recognition-in-videos-on-something?p=video-swin-transformer)
+## TSN (Temporal Segment Networks)
 
-By [Ze Liu](https://github.com/zeliu98/)\*, [Jia Ning](https://github.com/hust-nj)\*, [Yue Cao](http://yue-cao.me),  [Yixuan Wei](https://github.com/weiyx16), [Zheng Zhang](https://stupidzz.github.io/), [Stephen Lin](https://scholar.google.com/citations?user=c3PYmxUAAAAJ&hl=en) and [Han Hu](https://ancientmooner.github.io/).
+<aside>
+💡 비디오를 여러 세그먼트로 나누어 각 세그먼트의 특징을 추출한 후 통합하여 행동 인식을 수행하는 딥러닝 모델
+이 방식은 비디오의 시간적, 공간적 정보를 효과적으로 활용하여 높은 인식 성능을 제공
+</aside>
+<br>
+자세한 내용은 
+[GitHub - SwinTransformer/Video-Swin-Transformer: This is an official implementation for "Video Swin Transformers".](https://github.com/SwinTransformer/Video-Swin-Transformer)을 참조하세요
 
-This repo is the official implementation of ["Video Swin Transformer"](https://arxiv.org/abs/2106.13230). It is based on [mmaction2](https://github.com/open-mmlab/mmaction2).
-
-## Updates
-
-***06/25/2021*** Initial commits
-
-## Introduction
-
-**Video Swin Transformer** is initially described in ["Video Swin Transformer"](https://arxiv.org/abs/2106.13230), which advocates an inductive bias of locality in video Transformers, leading to a better speed-accuracy trade-off compared to previous approaches which compute self-attention globally even with spatial-temporal factorization. The locality of the proposed video architecture is realized by adapting the Swin Transformer designed for the image domain, while continuing to leverage the power of pre-trained image models. Our approach achieves state-of-the-art accuracy on a broad range of video recognition benchmarks, including action recognition (`84.9` top-1 accuracy on Kinetics-400 and `86.1` top-1 accuracy on Kinetics-600 with `~20x` less pre-training data and `~3x` smaller model size) and temporal modeling (`69.6` top-1 accuracy on Something-Something v2).
+### 목적
+<aside>
+434가지의 사고 유형을 인식하여 비디오를 학습하고, 주어진 비디오에서 가장 유사한 사고 유형을 탐지하는 것
+</aside>
 
 
-![teaser](figures/teaser.png)
+### 환경 설정
 
-## Results and Models
+mmaction2 설치 가이드
 
-### Kinetics 400
+[Installation — MMAction2 1.2.0 documentation](https://mmaction2.readthedocs.io/en/latest/get_started/installation.html)
 
-| Backbone |  Pretrain   | Lr Schd | spatial crop | acc@1 | acc@5 | #params | FLOPs | config | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|  Swin-T  | ImageNet-1K |  30ep   |     224      |  78.8  |  93.6  |   28M   |  87.9G  |  [config](configs/recognition/swin/swin_tiny_patch244_window877_kinetics400_1k.py)  | [github](https://github.com/SwinTransformer/storage/releases/download/v1.0.4/swin_tiny_patch244_window877_kinetics400_1k.pth)/[baidu](https://pan.baidu.com/s/1mIqRzk8RILeRsP2KB5T6fg) |
-|  Swin-S  | ImageNet-1K |  30ep   |     224      |  80.6  |  94.5  |   50M   |  165.9G  |  [config](configs/recognition/swin/swin_small_patch244_window877_kinetics400_1k.py)   | [github](https://github.com/SwinTransformer/storage/releases/download/v1.0.4/swin_small_patch244_window877_kinetics400_1k.pth)/[baidu](https://pan.baidu.com/s/1imq7LFNtSu3VkcRjd04D4Q) |
-|  Swin-B  | ImageNet-1K |  30ep   |     224      |  80.6  |  94.6  |   88M   |  281.6G  |  [config](configs/recognition/swin/swin_base_patch244_window877_kinetics400_1k.py)   | [github](https://github.com/SwinTransformer/storage/releases/download/v1.0.4/swin_base_patch244_window877_kinetics400_1k.pth)/[baidu](https://pan.baidu.com/s/1bD2lxGxqIV7xECr1n2slng) |
-|  Swin-B  | ImageNet-22K |  30ep   |     224      |  82.7  |  95.5  |   88M   |  281.6G  |  [config](configs/recognition/swin/swin_base_patch244_window877_kinetics400_22k.py)   | [github](https://github.com/SwinTransformer/storage/releases/download/v1.0.4/swin_base_patch244_window877_kinetics400_22k.pth)/[baidu](https://pan.baidu.com/s/1CcCNzJAIud4niNPcREbDbQ) |
+torch+torchvision 설치 방법
 
-### Kinetics 600
+```bash
+##torch+torchvision
+pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+##mmcv 설치
+pip install mmcv-full==1.4.0 -f https://download.openmmlab.com/mmcv/dist/cu111/torch1.8.0/index.html
 
-| Backbone |  Pretrain   | Lr Schd | spatial crop | acc@1 | acc@5 | #params | FLOPs | config | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|  Swin-B  | ImageNet-22K |  30ep   |     224      |  84.0  |  96.5  |   88M   |  281.6G  |  [config](configs/recognition/swin/swin_base_patch244_window877_kinetics600_22k.py)   | [github](https://github.com/SwinTransformer/storage/releases/download/v1.0.4/swin_base_patch244_window877_kinetics600_22k.pth)/[baidu](https://pan.baidu.com/s/1ZMeW6ylELTje-o3MiaZ-MQ) |
+##추가 모듈 설치
+pip install opencv-python
+pip install timm
+pip install scipy
+pip install einops
 
-### Something-Something V2
-
-| Backbone |  Pretrain   | Lr Schd | spatial crop | acc@1 | acc@5 | #params | FLOPs | config | model |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|  Swin-B  | Kinetics 400 |  60ep  |     224      |  69.6  |  92.7  |   89M   |  320.6G  |  [config](configs/recognition/swin/swin_base_patch244_window1677_sthv2.py)   | [github](https://github.com/SwinTransformer/storage/releases/download/v1.0.4/swin_base_patch244_window1677_sthv2.pth)/[baidu](https://pan.baidu.com/s/18MOGf6L3LeUjrLoQEeA52Q) |
-
-**Notes**:
-
-- **Pre-trained image models can be downloaded from [Swin Transformer for ImageNet Classification](https://github.com/microsoft/Swin-Transformer)**.
-- The pre-trained model of SSv2 could be downloaded at [github](https://github.com/SwinTransformer/storage/releases/download/v1.0.4/swin_base_patch244_window1677_kinetics400_22k.pth)/[baidu](https://pan.baidu.com/s/1ZnJuX7-x2BflDKHpuvdLUg).
-- Access code for baidu is `swin`.
-
-## Usage
-
-###  Installation
-
-Please refer to [install.md](docs/install.md) for installation.
-
-We also provide docker file [cuda10.1](docker/docker_10.1) ([image url](https://hub.docker.com/layers/ninja0/mmdet/pytorch1.7.1-py37-cuda10.1-openmpi-mmcv1.3.3-apex-timm/images/sha256-06d745934cb255e7fdf4fa55c47b192c81107414dfb3d0bc87481ace50faf90b?context=repo)) and [cuda11.0](docker/docker_11.0) ([image url](https://hub.docker.com/layers/ninja0/mmdet/pytorch1.7.1-py37-cuda11.0-openmpi-mmcv1.3.3-apex-timm/images/sha256-79ec3ec5796ca154a66d85c50af5fa870fcbc48357c35ee8b612519512f92828?context=repo)) for convenient usage.
-
-###  Data Preparation
-
-Please refer to [data_preparation.md](docs/data_preparation.md) for a general knowledge of data preparation.
-The supported datasets are listed in [supported_datasets.md](docs/supported_datasets.md).
-
-We also share our Kinetics-400 annotation file [k400_val](https://github.com/SwinTransformer/storage/releases/download/v1.0.6/k400_val.txt), [k400_train](https://github.com/SwinTransformer/storage/releases/download/v1.0.6/k400_train.txt) for better comparison.
-
-### Inference
-```
-# single-gpu testing
-python tools/test.py <CONFIG_FILE> <CHECKPOINT_FILE> --eval top_k_accuracy
-
-# multi-gpu testing
-bash tools/dist_test.sh <CONFIG_FILE> <CHECKPOINT_FILE> <GPU_NUM> --eval top_k_accuracy
+##오류 대응
+pip install numpy==1.19.0
 ```
 
-### Training
+Docker 이미지
 
-To train a video recognition model with pre-trained image models (for Kinetics-400 and Kineticc-600 datasets), run:
+- docker 파일 수정
+    
+    ```bash
+    ## 코드 추가
+    RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC 
+    ```
+    
+- **Important:** Make sure you've installed the [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker).
+- docker 빌드
+    
+    ```bash
+    # build an image with PyTorch 1.6.0, CUDA 10.1, CUDNN 7.
+    docker build -f ./docker/Dockerfile --rm -t mmaction2 .
+    
+    # docker run --gpus all --shm-size=8g -it -v {DATA_DIR}:/mmaction2/data mmaction2
+    docker run --gpus all --shm-size=8g -it -v G:/video_datasets/download_datas:/mmaction2/data mmaction2
+    
+    pip install mmcv==2.1.0
+    pip install -r requirements/build.txt
+    python setup.py develop
+    
+    apt-get update
+    apt-get install wget
+    ```
+    
+
+### DATA SET
+
+- download
+    
+    [AI-Hub](https://www.aihub.or.kr/devsport/apishell/list.do?currMenu=403&topMenu=100)
+    
+    ```bash
+    export AIHUB_ID=bbt1250912@gmail.com
+    export AIHUB_PW=''
+    aihubshell -mode d -datasetkey 597 -filekey 509338
+    ```
+        
+
+- 데이터 셋 구성 방법
+    
+    [https://github.com/SwinTransformer/Video-Swin-Transformer/blob/master/docs/tutorials/3_new_dataset.md](https://github.com/SwinTransformer/Video-Swin-Transformer/blob/master/docs/tutorials/3_new_dataset.md)
+    
+    - download 폴더 구성
+    
+    ```markdown
+    ### download 시                      ### anotation 변환
+    Root                                 Root
+    ├── origin                           ├── train
+    │   └── subfolder                    │    └── *.mp4
+    │       └── *.mp4                    ├── val
+    │                                    │    └── *.mp4 
+    └── label                            ├── test
+        └── subfolder                    │    └── *.mp4 
+    	    └── *.json                     ├── custom_train_mp4.txt
+    	                                   ├── custom_val_mp4.txt
+    	                                   └── custom_test_mp4.txt
+    ```
+    
+    - video_annotion 변환 방법
+        - 변환 방법
+            
+            ```bash
+            python {Download folder}/convert_video_annotation.py
+            ```
+            
+        - train :  val : test = 70 : 15 : 15 비율로 작성 함
+        - videodataset 방식의 annotation 진행
+    - annotation 형식
+        
+        ```
+        bb_1_210121_two-wheeled-vehicle_236_21840.mp4 206
+        bb_1_211031_two-wheeled-vehicle_241_21549.mp4 232
+        bb_1_210125_two-wheeled-vehicle_112_003.mp4 290
+        bb_1_210917_two-wheeled-vehicle_121_126.mp4 298
+        ...
+        ```
+        
+
+### Model 학습 방법
+
+- tutorial
+    
+    [Google Colab Tutorial](https://colab.research.google.com/drive/1dLeCGfq3bQFpgtfU5WSPFlvkKsZCWsdo#scrollTo=VcjSRFELVbNk)
+    
+1. 사전 학습 된 TSN 가중치 다운로드
+    
+    ```bash
+    mkdir checkpoints
+    wget -c https://download.openmmlab.com/mmaction/recognition/tsn/tsn_r50_1x1x3_100e_kinetics400_rgb/tsn_r50_1x1x3_100e_kinetics400_rgb_20200614-e508be42.pth \
+          -O ./checkpoints/tsn_r50_1x1x3_100e_kinetics400_rgb_20200614-e508be42.pth
+    ```
+    
+2. config 수정 및 학습
+    
+    ```python
+    from mmengine import Config
+    import os.path as osp
+    import mmengine
+    from mmengine.runner import Runner
+    from mmengine import Config
+    from mmengine.runner import set_random_seed
+    
+    # 설정 파일을 불러옵니다.
+    cfg = Config.fromfile('../configs/recognition/tsn/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py')
+    
+    # 데이터셋 타입과 경로를 수정합니다.
+    cfg.data_root = '/mmaction2/data/train/'
+    cfg.data_root_val = '/mmaction2/data/val/'
+    cfg.ann_file_train = '/mmaction2/data/custom_train_mp4.txt'
+    cfg.ann_file_val = '/mmaction2/data/custom_val_mp4.txt'
+    
+    # 테스트 데이터 로더의 데이터셋 주석 파일 및 데이터 경로를 수정합니다.
+    cfg.test_dataloader.dataset.ann_file = '/mmaction2/data/custom_val_mp4.txt'
+    cfg.test_dataloader.dataset.data_prefix.video = '/mmaction2/data/val/'
+    
+    # 훈련 데이터 로더의 데이터셋 주석 파일 및 데이터 경로를 수정합니다.
+    cfg.train_dataloader.dataset.ann_file = '/mmaction2/data/custom_train_mp4.txt'
+    cfg.train_dataloader.dataset.data_prefix.video = '/mmaction2/data/train/'
+    
+    # 검증 데이터 로더의 데이터셋 주석 파일 및 데이터 경로를 수정합니다.
+    cfg.val_dataloader.dataset.ann_file = '/mmaction2/data/custom_val_mp4.txt'
+    cfg.val_dataloader.dataset.data_prefix.video = '/mmaction2/data/val/'
+    
+    # 모델의 클래스 수를 수정합니다.
+    cfg.model.cls_head.num_classes = 434
+    
+    # 사전 학습된 TSN 모델을 사용합니다.
+    ##이어서 학습
+    # cfg.load_from = './checkpoints/tsn_r50_1x1x3_100e_kinetics400_rgb_20200614-e508be42.pth'
+    
+    # 파일과 로그를 저장할 작업 디렉토리를 설정합니다.
+    cfg.work_dir = './work_space'
+    
+    # 원래 학습률(LR)은 8-GPU 학습을 위해 설정되어 있습니다.
+    # 우리는 1개의 GPU만 사용하기 때문에 8로 나눕니다.
+    cfg.train_dataloader.batch_size = cfg.train_dataloader.batch_size // 16
+    cfg.val_dataloader.batch_size = cfg.val_dataloader.batch_size // 16
+    cfg.optim_wrapper.optimizer.lr = cfg.optim_wrapper.optimizer.lr / 8 / 16
+    cfg.train_cfg.max_epochs = 50
+    
+    # 데이터 로더의 작업자 수를 설정합니다.
+    cfg.train_dataloader.num_workers = 2
+    cfg.val_dataloader.num_workers = 2
+    cfg.test_dataloader.num_workers = 2
+    
+    # 학습을 위한 로거를 초기화하고 최종 설정을 출력합니다.
+    print(f'Config:\n{cfg.pretty_text}')
+    
+    # 작업 디렉토리를 생성합니다.
+    mmengine.mkdir_or_exist(osp.abspath(cfg.work_dir))
+    
+    # 설정에서 러너를 빌드합니다.
+    runner = Runner.from_cfg(cfg)
+    
+    # 학습을 시작합니다.
+    runner.train()
+    
+    # 테스트를 실행합니다.
+    runner.test()
+    ```
+    
+
+### tester(테스터기)
+
+```python
+from mmaction.apis import inference_recognizer, init_recognizer
+from mmengine import Config
+
+# 설정 파일을 선택하고 인식기를 초기화합니다.
+config = './sample_work/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
+config = Config.fromfile(config)
+
+# 로드할 체크포인트 파일을 설정합니다.
+checkpoint = './sample_work/best_acc_top1_epoch_9.pth'
+
+# 인식기를 초기화합니다.
+model = init_recognizer(config, checkpoint, device='cuda:0')
+
+# 인식기를 사용하여 추론을 수행합니다.
+from operator import itemgetter
+
+test_count = 0
+total_count = 0
+with open("../data/custom_test_mp4.txt", 'r', encoding='utf-8') as file:
+    lines = file.readlines()
+    total_count = len(lines)
+
+    for line in lines:
+        video_name, video_label = line.split()
+
+        # 예측할 비디오 파일 경로
+        video = '../data/test/'+video_name
+        # 라벨 파일 경로
+        label = './index_map.txt'
+
+        # 비디오에 대한 인식 결과를 얻습니다.
+        results = inference_recognizer(model, video)
+
+        # 예측 점수를 리스트로 변환합니다.
+        pred_scores = results.pred_score.tolist()
+        # 예측 점수와 인덱스를 튜플로 묶습니다.
+        score_tuples = tuple(zip(range(len(pred_scores)), pred_scores))
+        # 점수를 기준으로 내림차순 정렬합니다.
+        score_sorted = sorted(score_tuples, key=itemgetter(1), reverse=True)
+        # 상위 5개의 라벨을 선택합니다.
+        top5_label = score_sorted[:5]
+
+        # 라벨 파일을 읽어옵니다.
+        labels = open(label).readlines()
+        # 라벨에서 공백 문자를 제거합니다.
+        labels = [x.strip() for x in labels]
+
+        # 상위 5개 라벨과 점수를 매핑합니다.
+        results = [(labels[k[0]], k[1]) for k in top5_label]
+
+        # 상위 1개 가져오기
+        print("정답 :"+video_label)
+        print(f'{results[0][0]}: ', results[0][1])
+
+        if int(results[0][0]) == int(video_label):
+            test_count += 1
+print("{}|{} - {}%".format(test_count,total_count,test_count/total_count*100))
 ```
-# single-gpu training
-python tools/train.py <CONFIG_FILE> --cfg-options model.backbone.pretrained=<PRETRAIN_MODEL> [model.backbone.use_checkpoint=True] [other optional arguments]
 
-# multi-gpu training
-bash tools/dist_train.sh <CONFIG_FILE> <GPU_NUM> --cfg-options model.backbone.pretrained=<PRETRAIN_MODEL> [model.backbone.use_checkpoint=True] [other optional arguments]
-```
-For example, to train a `Swin-T` model for Kinetics-400 dataset  with  8 gpus, run:
-```
-bash tools/dist_train.sh configs/recognition/swin/swin_tiny_patch244_window877_kinetics400_1k.py 8 --cfg-options model.backbone.pretrained=<PRETRAIN_MODEL> 
-```
+### recognizor(추론기)
 
-To train a video recognizer with pre-trained video models (for Something-Something v2 datasets), run:
-```
-# single-gpu training
-python tools/train.py <CONFIG_FILE> --cfg-options load_from=<PRETRAIN_MODEL> [model.backbone.use_checkpoint=True] [other optional arguments]
+1. config
+    - 학습 시 사용한 workspace에 생성되어 있는  config 파일 사용
+2. checkpoint 
+    - workspace에 생성 된 best 가중치 사용
+3. label
+    - 0~433, 총 434개의 숫자가 “\n”으로 분리된 파일로 /data 폴더에 같이 저장되어 있음
 
-# multi-gpu training
-bash tools/dist_train.sh <CONFIG_FILE> <GPU_NUM> --cfg-options load_from=<PRETRAIN_MODEL> [model.backbone.use_checkpoint=True] [other optional arguments]
-```
-For example, to train a `Swin-B` model for SSv2 dataset with 8 gpus, run:
-```
-bash tools/dist_train.sh configs/recognition/swin/swin_base_patch244_window1677_sthv2.py 8 --cfg-options load_from=<PRETRAIN_MODEL>
-```
+```python
+from mmaction.apis import inference_recognizer, init_recognizer
+from mmengine import Config
 
-**Note:** `use_checkpoint` is used to save GPU memory. Please refer to [this page](https://pytorch.org/docs/stable/checkpoint.html) for more details.
+# 설정 파일을 선택하고 인식기를 초기화합니다.
+config = './sample_work/tsn_imagenet-pretrained-r50_8xb32-1x1x8-100e_kinetics400-rgb.py'
+config = Config.fromfile(config)
 
+# 로드할 체크포인트 파일을 설정합니다.
+checkpoint = './sample_work/best_acc_top1_epoch_8.pth'
 
-### Apex (optional):
-We use apex for mixed precision training by default. To install apex, use our provided docker or run:
-```
-git clone https://github.com/NVIDIA/apex
-cd apex
-pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
-```
-If you would like to disable apex, comment out the following code block in the [configuration files](configs/recognition/swin):
-```
-# do not use mmcv version fp16
-fp16 = None
-optimizer_config = dict(
-    type="DistOptimizerHook",
-    update_interval=1,
-    grad_clip=None,
-    coalesce=True,
-    bucket_size_mb=-1,
-    use_fp16=True,
-)
-```
+# 인식기를 초기화합니다.
+model = init_recognizer(config, checkpoint, device='cuda:0')
 
-## Citation
-If you find our work useful in your research, please cite:
+# 인식기를 사용하여 추론을 수행합니다.
+from operator import itemgetter
 
-```
-@article{liu2021video,
-  title={Video Swin Transformer},
-  author={Liu, Ze and Ning, Jia and Cao, Yue and Wei, Yixuan and Zhang, Zheng and Lin, Stephen and Hu, Han},
-  journal={arXiv preprint arXiv:2106.13230},
-  year={2021}
-}
+# 예측할 비디오 파일 경로
+video = './test2_175.mp4'
+# 라벨 파일 경로
+label = './index_map.txt'
 
-@article{liu2021Swin,
-  title={Swin Transformer: Hierarchical Vision Transformer using Shifted Windows},
-  author={Liu, Ze and Lin, Yutong and Cao, Yue and Hu, Han and Wei, Yixuan and Zhang, Zheng and Lin, Stephen and Guo, Baining},
-  journal={arXiv preprint arXiv:2103.14030},
-  year={2021}
-}
+# 비디오에 대한 인식 결과를 얻습니다.
+results = inference_recognizer(model, video)
+
+# 예측 점수를 리스트로 변환합니다.
+pred_scores = results.pred_score.tolist()
+# 예측 점수와 인덱스를 튜플로 묶습니다.
+score_tuples = tuple(zip(range(len(pred_scores)), pred_scores))
+# 점수를 기준으로 내림차순 정렬합니다.
+score_sorted = sorted(score_tuples, key=itemgetter(1), reverse=True)
+# 상위 5개의 라벨을 선택합니다.
+top5_label = score_sorted[:5]
+
+# 라벨 파일을 읽어옵니다.
+labels = open(label).readlines()
+# 라벨에서 공백 문자를 제거합니다.
+labels = [x.strip() for x in labels]
+
+# 상위 5개 라벨과 점수를 매핑합니다.
+results = [(labels[k[0]], k[1]) for k in top5_label]
+
+# 상위 5개 라벨과 해당 점수를 출력합니다.
+print('The top-5 labels with corresponding scores are:')
+for result in results:
+    print(f'{result[0]}: ', result[1])
 ```
 
-## Other Links
+오류 모음
 
-> **Image Classification**: See [Swin Transformer for Image Classification](https://github.com/microsoft/Swin-Transformer).
-
-> **Object Detection**: See [Swin Transformer for Object Detection](https://github.com/SwinTransformer/Swin-Transformer-Object-Detection).
-
-> **Semantic Segmentation**: See [Swin Transformer for Semantic Segmentation](https://github.com/SwinTransformer/Swin-Transformer-Semantic-Segmentation).
-
-> **Self-Supervised Learning**: See [MoBY with Swin Transformer](https://github.com/SwinTransformer/Transformer-SSL).
+1. GPG 에러
+    
+    ```bash
+    오류 내용:
+    GPG error: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY A4B469963BF863CC
+    해결 방법:
+    # NVIDIA CUDA 리포지토리의 공개 키 다운로드 및 추가
+    RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC 
+    ```
+    
+    [GPG error: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY A4B469963BF863CC](https://better-tomorrow.tistory.com/entry/GPG-error-httpsdeveloperdownloadnvidiacomcomputecudareposubuntu1804x8664-InRelease-The-following-signatures-couldnt-be-verified-because-the-public-key-is-not-available-NOPUBKEY-A4B469963BF863CC)
+    
+2. numpy 버전 에러
+    
+    ```bash
+    ##오류 내용
+    AttributeError: module 'numpy' has no attribute 'int'.
+    `np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+    The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
+        https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+    ```
+    
+    ```bash
+    ##해결 방법
+    pip install numpy==1.19.0
+    ```
