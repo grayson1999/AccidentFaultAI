@@ -7,8 +7,10 @@
 이 방식은 비디오의 시간적, 공간적 정보를 효과적으로 활용하여 높은 인식 성능을 제공
 </aside>
 <br>
+
 자세한 내용은 
-[GitHub - SwinTransformer/Video-Swin-Transformer: This is an official implementation for "Video Swin Transformers".](https://github.com/SwinTransformer/Video-Swin-Transformer)을 참조하세요
+[GitHub - SwinTransformer/Video-Swin-Transformer: This is an official implementation for "Video Swin Transformers](https://github.com/SwinTransformer/Video-Swin-Transformer)
+을 참조하세요
 
 
 ### 목차
