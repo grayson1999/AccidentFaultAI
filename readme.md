@@ -13,12 +13,14 @@
     nID1--mp4-->nID2--dict-->nID3--set-->nID4
     ```
 
+* [YOLOv8 detection 모델]()
+* [TSN (Temporal Segment Networks)](./video-Swin-Transformer/README.md)
+
+
 ## 목차
 1. [데이터 설명](#데이터-설명) 
-2. [YOLOv8 detection 모델]()
-3. [TSN (Temporal Segment Networks)](./video-Swin-Transformer/README.md)
-4. [Version Control](#version-control)
-5. [참고자료](#참고자료)
+2. [Version Control](#version-control)
+3. [참고자료](#참고자료)
 
 ## 데이터 설명
 
@@ -27,19 +29,19 @@
     [AI-Hub](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=&topMenu=&aihubDataSe=data&dataSetSn=597)
     
     - 데이터 설명서
-        
-        [Incident_Type_Classification_Table.csv](./asset/Incident_Type_Classification_Table.csv)
+        [1-56 교통사고 영상 데이터_데이터설명서_v1.0.pdf](./asset/1-56%20교통사고%20영상%20데이터_데이터설명서_v1.0.pdf)
         
         - 데이터 사고유형별 index
             
-            [1-56 교통사고 영상 데이터_데이터설명서_v1.0.pdf](./asset/1-56%20교통사고%20영상%20데이터_데이터설명서_v1.0.pdf)
+            [Incident_Type_Classification_Table.csv](./asset/Incident_Type_Classification_Table.csv)
 
 ## Version Control
 
 | 버전       | 날짜      | 변경 내용                                |
 |------------|-------------|------------------------------------------|
 |0.1|24.05.22|초기 repository 설정 및 초기 video-swin-transformer 버전 업로드|
-|0.2|24.05.22|main, video-swin-transformer의 readme.md 작성
+|0.2|24.05.22|main, video-swin-transformer의 readme.md 작성|
+|0.3|24.05.22|사고 유형을 통해 과실 비율 등 검색 모듈 추가(accidentSerch)|
 
 
 ## 참고자료

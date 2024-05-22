@@ -10,10 +10,26 @@
 자세한 내용은 
 [GitHub - SwinTransformer/Video-Swin-Transformer: This is an official implementation for "Video Swin Transformers".](https://github.com/SwinTransformer/Video-Swin-Transformer)을 참조하세요
 
+
+### 목차
+1. [목적](#목적)
+2. [모델 정확도]()
+3. [환경 설정](#환경-설정) 
+4. [DATA SET](#data-set) 
+5. [Model 학습 방법](#model-학습-방법) 
+6. [tester(테스터기)](#tester테스터기) 
+7. [recognizor(추론기)](#recognizor추론기) 
+
+
 ### 목적
 <aside>
 434가지의 사고 유형을 인식하여 비디오를 학습하고, 주어진 비디오에서 가장 유사한 사고 유형을 탐지하는 것
 </aside>
+
+### 모델
+| 모델 이름             | 정확도(top1) | 정확도(top5) | 평균 정확도(mean1) | 로스   | 메모리 |
+|----------------------|--------------|--------------|--------------------|--------|--------|
+| best_acc_top1_epoch_13.pth | 0.1761       | 0.3876       | 0.0213             | 3.6529 | 353 MB |
 
 
 ### 환경 설정
@@ -127,7 +143,7 @@ Docker 이미지
     
     [Google Colab Tutorial](https://colab.research.google.com/drive/1dLeCGfq3bQFpgtfU5WSPFlvkKsZCWsdo#scrollTo=VcjSRFELVbNk)
     
-1. 사전 학습 된 TSN 가중치 다운로드
+1. 사전 학습 된 TSN 가중치 다운로드(optional)
     
     ```bash
     mkdir checkpoints
