@@ -19,8 +19,9 @@
 
 ## 목차
 1. [데이터 설명](#데이터-설명) 
-2. [Version Control](#version-control)
-3. [참고자료](#참고자료)
+2. [환경설정](#)
+3. [Version Control](#version-control)
+4. [참고자료](#참고자료)
 
 ## 데이터 설명
 
@@ -31,6 +32,23 @@
     - 데이터 사고유형별 index
     <br>[Incident_Type_Classification_Table.csv](./asset/Incident_Type_Classification_Table.csv)
 
+## 환경설정
+- docker 빌드
+    ```bash
+    # build an image with PyTorch 1.6.0, CUDA 10.1, CUDNN 7.
+    docker build -f ./docker/Dockerfile --rm -t accidentfaultai .
+
+    # docker run --gpus all --shm-size=8g -it accidentfaultai
+    docker run --gpus all --shm-size=8g -it -v G:/:/app/data accidentfaultai
+
+    ```
+    ```bash
+    #additional comments
+    pip install mmcv==2.1.0
+    pip install -r requirements/build.txt
+    python setup.py develop
+    ```
+
 ## Version Control
 
 | 버전       | 날짜      | 변경 내용                                |
@@ -39,6 +57,7 @@
 |0.2|24.05.22|main, video-swin-transformer의 readme.md 작성|
 |0.3|24.05.22|사고 유형을 통해 과실 비율 등 검색 모듈 추가(accidentSerch)|
 |0.3.1|24.05.24|main docker file 및 model 업로드|
+|0.3.2|24.05.24|main docker file 수정, single_tsn_teater 제작, main readme 환경 설정 섹션 추가|
 
 
 ## 참고자료
