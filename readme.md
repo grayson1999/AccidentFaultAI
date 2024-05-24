@@ -38,6 +38,7 @@
 |0.1|24.05.22|초기 repository 설정 및 초기 video-swin-transformer 버전 업로드|
 |0.2|24.05.22|main, video-swin-transformer의 readme.md 작성|
 |0.3|24.05.22|사고 유형을 통해 과실 비율 등 검색 모듈 추가(accidentSerch)|
+|0.3.1|24.05.24|main docker file 및 model 업로드|
 
 
 ## 참고자료
