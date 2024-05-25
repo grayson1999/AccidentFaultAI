@@ -14,7 +14,7 @@
     ```
 
 * [YOLOv8 detection 모델]()
-* [TSN (Temporal Segment Networks)](./video-Swin-Transformer/README.md)
+* [TSN (Temporal Segment Networks)](./video-swin-transformer.md)
 
 
 ## 목차
@@ -58,6 +58,7 @@
 |0.3|24.05.22|사고 유형을 통해 과실 비율 등 검색 모듈 추가(accidentSerch)|
 |0.3.1|24.05.24|main docker file 및 model 업로드|
 |0.3.2|24.05.24|main docker file 수정, single_tsn_teater 제작, main readme 환경 설정 섹션 추가|
+|0.3.3|24.05.25|video-swin-transformer를 main 폴더로 정리|
 
 
 ## 참고자료
