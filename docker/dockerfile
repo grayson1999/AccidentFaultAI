@@ -25,3 +25,4 @@ RUN mkdir -p /accidentfaultai/data
 ENV FORCE_CUDA="1"
 RUN pip install cython --no-cache-dir
 RUN pip install --no-cache-dir -e .
+
