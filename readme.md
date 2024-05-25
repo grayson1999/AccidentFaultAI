@@ -39,7 +39,7 @@
     docker build -f ./docker/Dockerfile --rm -t accidentfaultai .
 
     # docker run --gpus all --shm-size=8g -it accidentfaultai
-    docker run --gpus all --shm-size=8g -it -v G:/:/app/data accidentfaultai
+    docker run --gpus all --shm-size=8g -it -v G:/:/accidentfaultai/datasets/data accidentfaultai
 
     ```
     ```bash
