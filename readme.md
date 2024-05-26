@@ -20,6 +20,7 @@
 ## 목차
 1. [데이터 설명](#데이터-설명) 
 2. [환경설정](#환경설정)
+3. [model 설명](#model-설명)
 3. [Single_TSN_model](#single_tsn_model)
 4. [Version Control](#version-control)
 5. [참고자료](#참고자료)
@@ -56,11 +57,14 @@
     python setup.py develop
     pip install pandas
     ```
-
-## Single_TSN_model
+## model 설명
 |     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |
 |--------------|-----------------------|------------------|---------------------|-------------------|
 |single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|
+
+
+## Single_TSN_model
+
 
 ## Version Control
 
