@@ -55,6 +55,11 @@
     python setup.py develop
     ```
 
+## Single_TSN_model
+|     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |
+|--------------|-----------------------|------------------|---------------------|-------------------|
+|single_tsn_model|TSN(best_acc_top1_epoch_13)|20.6|·|29.9|
+
 ## Version Control
 
 | 버전       | 날짜      | 변경 내용                                |
@@ -65,7 +70,8 @@
 |0.3.1|24.05.24|main docker file 및 model 업로드|
 |0.3.2|24.05.24|main docker file 수정, single_tsn_teater 제작, main readme 환경 설정 섹션 추가|
 |0.3.3|24.05.25|video-swin-transformer를 main 폴더로 정리|  
-|0.3.4|24.05.25|video-swin-transformer를 [TSNAccidentAnalysis](https://github.com/grayson1999/TSNAccidentAnalysis)으로 분리, docker file 수정|  
+|0.3.4|24.05.27|video-swin-transformer를 [TSNAccidentAnalysis](https://github.com/grayson1999/TSNAccidentAnalysis)으로 분리, docker file 수정|  
+|0.4|24.05.27|docker 환경 구축, single_tsn_model 테스트| 
 
 
 ## 참고자료

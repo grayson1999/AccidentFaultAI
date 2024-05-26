@@ -2,7 +2,7 @@ import pandas as pd
 
 class AccidentSearch():
     def __init__(self):
-        self.df = pd.read_csv('./files/Incident_Type_Classification_Table.csv',encoding="cp949")
+        self.df = pd.read_csv('/AccidentFaultAI/files/Incident_Type_Classification_Table.csv',encoding="cp949")
     
     def select_type_num(self, type_num):
         temp_df = self.df.loc[self.df["사고유형"]==type_num]
@@ -13,4 +13,5 @@ class AccidentSearch():
 
 if __name__=="__main__":
     ads = AccidentSearch()
-    print(ads.select_type_num(3))
+    result = ads.select_type_num(3)
+    print(result)
