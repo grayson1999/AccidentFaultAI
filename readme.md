@@ -14,7 +14,7 @@
     ```
 
 * [YOLOv8 detection 모델]()
-* [TSN (Temporal Segment Networks)](./video-swin-transformer.md)
+* [TSN (Temporal Segment Networks)](https://github.com/grayson1999/TSNAccidentAnalysis)
 
 
 ## 목차
@@ -35,11 +35,17 @@
 ## 환경설정
 - docker 빌드
     ```bash
+    # 버전 수정
+    ARG PYTORCH="1.6.0"
+    ARG CUDA="10.1"
+    ARG CUDNN="7"
+    ```
+    ```bash
     # build an image with PyTorch 1.6.0, CUDA 10.1, CUDNN 7.
     docker build -f ./docker/Dockerfile --rm -t accidentfaultai .
 
     # docker run --gpus all --shm-size=8g -it accidentfaultai
-    docker run --gpus all --shm-size=8g -it -v G:/:/accidentfaultai/datasets/data accidentfaultai
+    docker run --gpus all --shm-size=8g -it -v G:/:/AccidentFaultAI/datasets/data accidentfaultai
 
     ```
     ```bash
@@ -59,6 +65,7 @@
 |0.3.1|24.05.24|main docker file 및 model 업로드|
 |0.3.2|24.05.24|main docker file 수정, single_tsn_teater 제작, main readme 환경 설정 섹션 추가|
 |0.3.3|24.05.25|video-swin-transformer를 main 폴더로 정리|  
+|0.3.4|24.05.25|video-swin-transformer를 [TSNAccidentAnalysis](https://github.com/grayson1999/TSNAccidentAnalysis)으로 분리, docker file 수정|  
 
 
 ## 참고자료
