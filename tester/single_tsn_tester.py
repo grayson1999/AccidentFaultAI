@@ -9,7 +9,7 @@ config = '/AccidentFaultAI/model/TSN/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100
 config = Config.fromfile(config)
 
 # 로드할 체크포인트 파일을 설정합니다.
-checkpoint = '/AccidentFaultAI/model/TSN/best_acc_top1_epoch_13.pth'
+checkpoint = '/AccidentFaultAI/model/TSN/best_model_0522.pth'
 
 # 인식기를 초기화합니다.
 model = init_recognizer(config, checkpoint, device='cuda:0')

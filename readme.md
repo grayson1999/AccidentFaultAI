@@ -20,8 +20,9 @@
 ## 목차
 1. [데이터 설명](#데이터-설명) 
 2. [환경설정](#환경설정)
-3. [Version Control](#version-control)
-4. [참고자료](#참고자료)
+3. [Single_TSN_model](#single_tsn_model)
+4. [Version Control](#version-control)
+5. [참고자료](#참고자료)
 
 ## 데이터 설명
 
@@ -53,12 +54,13 @@
     pip install mmcv==2.1.0
     pip install -r requirements/build.txt
     python setup.py develop
+    pip install pandas
     ```
 
 ## Single_TSN_model
 |     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |
 |--------------|-----------------------|------------------|---------------------|-------------------|
-|single_tsn_model|TSN(best_acc_top1_epoch_13)|20.6|·|29.9|
+|single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|
 
 ## Version Control
 
