@@ -1,3 +1,5 @@
 *.zip
 !TSN.zip
 TSN/
+data/
+mmaction2/
