@@ -30,7 +30,7 @@
     - 데이터 설명서
     <br>[1-56 교통사고 영상 데이터_데이터설명서_v1.0.pdf](./asset/1-56%20교통사고%20영상%20데이터_데이터설명서_v1.0.pdf)
     - 데이터 사고유형별 index
-    <br>[Incident_Type_Classification_Table.csv](./asset/Incident_Type_Classification_Table.csv)
+    <br>[Incident_Type_Classification_Table.csv](./files/Incident_Type_Classification_Table.csv)
 
 ## 환경설정
 - docker 빌드
