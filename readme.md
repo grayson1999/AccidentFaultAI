@@ -61,6 +61,7 @@
 |     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |
 |--------------|-----------------------|------------------|---------------------|-------------------|
 |single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|
+|single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|
 
 ## Version Control
 
@@ -74,6 +75,7 @@
 |0.3.3|24.05.25|video-swin-transformer를 main 폴더로 정리|  
 |0.3.4|24.05.27|video-swin-transformer를 [TSNAccidentAnalysis](https://github.com/grayson1999/TSNAccidentAnalysis)으로 분리, docker file 수정|  
 |0.4|24.05.27|docker 환경 구축, single_tsn_model 테스트| 
+|0.4.1|24.05.27|top_5 acc 추가, 모
 
 
 ## 참고자료

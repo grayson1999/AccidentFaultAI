@@ -1,5 +1,4 @@
-*.zip
-!TSN.zip
 TSN/
 data/
 mmaction2/
+best_model_0527/
