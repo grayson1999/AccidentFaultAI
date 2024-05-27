@@ -56,6 +56,11 @@
     pip install -r requirements/build.txt
     python setup.py develop
     pip install pandas
+    ##for yolo
+    pip install --upgrade pip
+    pip install numpy --upgrade
+    pip install ultralytics
+    pip install opencv-contrib-python==4.5.5.62
     ```
 
 ## 모델 정확도
@@ -92,7 +97,7 @@
 |0.4.1|24.05.27|top_5 acc 추가, 모델(best_model_0527) 추가|
 |0.5|24.05.27|recognizer 제작|
 |0.5.1|24.05.27|incident_Type 컬럼 명 영어로 변경 및 모듈 대응|
-|0.5.2|24.05.27|yolo dockerfile 추가|
+|0.5.2|24.05.27|yolo readme 추가|
 
 
 ## 참고자료
