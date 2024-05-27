@@ -1,10 +1,10 @@
 {
-    "사고객체": "고속도로",
-    "사고장소": "고속도로(자동차전용도로)포함",
-    "사고장소특징": "주행차로와 주행차로",
-    "A진행방향": "후행직진",
-    "B진행방향": "주행차로에서 주행차 로 변경",
-    "과실비율A": 30,
-    "과실비율B": 70,
-    "사고유형": 189
+    "AccidentObject": "고속도로",
+    "AccidentLocation": "고속도로(자동차전용도로)포함",
+    "AccidentLocationCharacteristics": "주행차로와 주행차로",
+    "DirectionOfA": "후행직진",
+    "DirectionOfB": "주행차로에서 주행차 로 변경",
+    "FaultRatioA": 30,
+    "FaultRatioB": 70,
+    "AccidentType": 189
 }

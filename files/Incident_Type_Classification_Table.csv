@@ -1,4 +1,4 @@
-사고객체,사고장소,사고장소특징,A진행방향,B진행방향,과실비율A,과실비율B,사고유형
+AccidentObject,AccidentLocation,AccidentLocationCharacteristics,DirectionOfA,DirectionOfB,FaultRatioA,FaultRatioB,AccidentType
 차대차,직선 도로,추돌 사고,선행자동차(1차사고차량)를 추돌,선행자동차(1차사고차량),80,20,0
 차대차,직선 도로,추돌 사고,후행 추돌,선행 직진,100,0,1
 차대차,직선 도로,추돌 사고,주(정)차,후행 추돌,0,100,2

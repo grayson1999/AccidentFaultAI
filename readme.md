@@ -77,6 +77,7 @@
 |0.4|24.05.27|docker 환경 구축, single_tsn_model 테스트| 
 |0.4.1|24.05.27|top_5 acc 추가, 모델(best_model_0527) 추가|
 |0.5|24.05.27|recognizer 제작|
+|0.5.1|24.05.27|incident_Type 컬럼 명 영어로 변경 및 모듈 대응|
 
 
 ## 참고자료
