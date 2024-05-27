@@ -20,10 +20,10 @@
 ## 목차
 1. [데이터 설명](#데이터-설명) 
 2. [환경설정](#환경설정)
-3. [model 설명](#model-설명)
-3. [Single_TSN_model](#single_tsn_model)
-4. [Version Control](#version-control)
-5. [참고자료](#참고자료)
+3. [모델 정확도](#모델-정확도)
+4. [Single_TSN_model](#single_tsn_model)
+5. [Version Control](#version-control)
+6. [참고자료](#참고자료)
 
 ## 데이터 설명
 
@@ -57,14 +57,25 @@
     python setup.py develop
     pip install pandas
     ```
-## model 설명
+
+## 모델 정확도
 |     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |
 |--------------|-----------------------|------------------|---------------------|-------------------|
 |single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|
-
+|single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|
 
 ## Single_TSN_model
-
+- 경로 수정
+    ```python
+    ## ./recognizer/single_tsn_recognizer.py
+    config = '/AccidentFaultAI/model/TSN/best_model_0527/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
+    checkpoint = '/AccidentFaultAI/model/TSN/best_model_0527/best_model_0527.pth'
+    video = '/AccidentFaultAI/recognizer/demo_video/cc_5.mp4'
+    ```
+- run   
+    ```bash
+    python ./recognizer/single_tsn_recognizer.py
+    ```
 
 ## Version Control
 
@@ -78,6 +89,10 @@
 |0.3.3|24.05.25|video-swin-transformer를 main 폴더로 정리|  
 |0.3.4|24.05.27|video-swin-transformer를 [TSNAccidentAnalysis](https://github.com/grayson1999/TSNAccidentAnalysis)으로 분리, docker file 수정|  
 |0.4|24.05.27|docker 환경 구축, single_tsn_model 테스트| 
+|0.4.1|24.05.27|top_5 acc 추가, 모델(best_model_0527) 추가|
+|0.5|24.05.27|recognizer 제작|
+|0.5.1|24.05.27|incident_Type 컬럼 명 영어로 변경 및 모듈 대응|
+|0.5.2|24.05.27|yolo dockerfile 추가|
 
 
 ## 참고자료

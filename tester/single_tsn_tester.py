@@ -5,11 +5,11 @@ sys.path.append('/AccidentFaultAI/')
 from module.accidentSearch import AccidentSearch
 
 # 설정 파일을 선택하고 인식기를 초기화합니다.
-config = '/AccidentFaultAI/model/TSN/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
+config = '/AccidentFaultAI/model/TSN/best_model_0527/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
 config = Config.fromfile(config)
 
 # 로드할 체크포인트 파일을 설정합니다.
-checkpoint = '/AccidentFaultAI/model/TSN/best_model_0522.pth'
+checkpoint = '/AccidentFaultAI/model/TSN/best_model_0527/best_model_0527.pth'
 
 # 인식기를 초기화합니다.
 model = init_recognizer(config, checkpoint, device='cuda:0')
@@ -18,6 +18,7 @@ model = init_recognizer(config, checkpoint, device='cuda:0')
 from operator import itemgetter
 
 test_count = 0
+test5_count = 0
 rate_count = 0
 total_count = 0
 with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_test_mp4.txt", 'r', encoding='utf-8') as file:
@@ -30,7 +31,7 @@ with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_t
         # 예측할 비디오 파일 경로
         video = '/AccidentFaultAI/datasets/data/video_datasets/download_datas/test/'+video_name
         # 라벨 파일 경로
-        label = '/AccidentFaultAI/model/TSN/index_map.txt'
+        label = '/AccidentFaultAI/model/TSN/best_model_0527/index_map.txt'
 
         # 비디오에 대한 인식 결과를 얻습니다.
         results = inference_recognizer(model, video)
@@ -63,18 +64,32 @@ with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_t
 
         # 상위 1개 가져오기
         print("정답 :"+video_label,end="")
-        print(" | 비율{}:{}".format(result_type_dict["과실비율A"],result_type_dict["과실비율B"]))
-        print(f'{results[0][0]}: ', results[0][1])
+        print(" | 비율 {}:{}".format(result_type_dict["과실비율A"],result_type_dict["과실비율B"]))
         print("{}:{}".format(top_1_type_dict["과실비율A"],top_1_type_dict["과실비율B"]))
+
+        for result in results:
+            print(f'{result[0]}: ', result[1])
+            if int(video_label) == int(result[0]):
+                test5_count += 1
+        
         
         if int(results[0][0]) == int(video_label):
             test_count += 1
+
         if int(result_type_dict["과실비율A"]) == int(top_1_type_dict["과실비율A"]):
             rate_count += 1
+
+        #debug
+        # print(test_count)
+        # print(test5_count)
+        # print(rate_count)
+        # print(total_count)
             
 print("top_1 정확도 {}|{} - {}%".format(test_count,total_count,test_count/total_count*100))
+print("top_5 정확도 {}|{} - {}%".format(test5_count,total_count,test5_count/total_count*100))
 print("rate 정확도 {}|{} - {}%".format(rate_count,total_count,rate_count/total_count*100))
 
 with open("/AccidentFaultAI/tester/single_tsn_tester_log.txt","a") as f:
     f.write("top_1 정확도 {}|{} - {}%\n".format(test_count,total_count,test_count/total_count*100))
+    f.write("top_5 정확도 {}|{} - {}%".format(test5_count,total_count,test5_count/total_count*100))
     f.write("rate 정확도 {}|{} - {}%\n\n".format(rate_count,total_count,rate_count/total_count*100))

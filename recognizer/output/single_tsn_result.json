@@ -1,0 +1,10 @@
+{
+    "AccidentObject": "고속도로",
+    "AccidentLocation": "고속도로(자동차전용도로)포함",
+    "AccidentLocationCharacteristics": "주행차로와 주행차로",
+    "DirectionOfA": "후행직진",
+    "DirectionOfB": "주행차로에서 주행차 로 변경",
+    "FaultRatioA": 30,
+    "FaultRatioB": 70,
+    "AccidentType": 189
+}
