@@ -20,9 +20,10 @@
 ## 목차
 1. [데이터 설명](#데이터-설명) 
 2. [환경설정](#환경설정)
-3. [Single_TSN_model](#single_tsn_model)
-4. [Version Control](#version-control)
-5. [참고자료](#참고자료)
+3. [모델 정확도](#모델-정확도)
+4. [Single_TSN_model](#single_tsn_model)
+5. [Version Control](#version-control)
+6. [참고자료](#참고자료)
 
 ## 데이터 설명
 
@@ -57,11 +58,24 @@
     pip install pandas
     ```
 
-## Single_TSN_model
+## 모델 정확도
 |     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |
 |--------------|-----------------------|------------------|---------------------|-------------------|
 |single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|
 |single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|
+
+## Single_TSN_model
+- 경로 수정
+    ```python
+    ## ./recognizer/single_tsn_recognizer.py
+    config = '/AccidentFaultAI/model/TSN/best_model_0527/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
+    checkpoint = '/AccidentFaultAI/model/TSN/best_model_0527/best_model_0527.pth'
+    video = '/AccidentFaultAI/recognizer/demo_video/cc_5.mp4'
+    ```
+- run   
+    ```bash
+    python ./recognizer/single_tsn_recognizer.py
+    ```
 
 ## Version Control
 
