@@ -18,7 +18,7 @@ class Single_tsn_recognizer():
         # 인식기를 초기화합니다.
         self.model = init_recognizer(config, checkpoint, device='cuda:0')
 
-    def single_tsn_predict(self, video_path):
+    def predict(self, video_path):
         # 인식기를 사용하여 추론을 수행합니다.
         from operator import itemgetter
 

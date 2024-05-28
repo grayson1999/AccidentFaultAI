@@ -61,6 +61,11 @@
     pip install numpy --upgrade
     pip install ultralytics
     pip install opencv-contrib-python==4.5.5.62
+    ##for fast api
+    pip install fastapi
+    pip install "uvicorn[standard]"
+    pip install python-multipart
+    pip install jinja2
     ```
 
 ## 모델 정확도
@@ -102,6 +107,7 @@
 |0.5.3|24.05.28|yolo_tsn_model 테스트, detection filter 제작|
 |0.6|24.05.28|yolo_tsn_recognizer 제작 및 class화|
 |0.6.1|24.05.28|single_tsn_recognizer class화 및 패키지화|
+|0.7|24.05.28|fast api로 api 서버 제작| 
 
 
 ## 참고자료

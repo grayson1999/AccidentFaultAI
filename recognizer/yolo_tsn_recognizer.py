@@ -25,7 +25,7 @@ class Yolo_tsn_recognizer():
         # yolo 인식기 초기화
         self.ypd = Yolo_predect()
     
-    def yolo_tsn_predict(self, video_path):
+    def predict(self, video_path):
         # 예측할 비디오 파일 경로
         video = video_path
         # 라벨 파일 경로
