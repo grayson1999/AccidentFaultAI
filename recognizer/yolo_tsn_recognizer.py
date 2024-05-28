@@ -1,5 +1,6 @@
 from mmaction.apis import inference_recognizer, init_recognizer
 from mmengine import Config
+import json
 import sys
 sys.path.append('/AccidentFaultAI/')
 from module.accidentSearch import AccidentSearch
@@ -72,6 +73,10 @@ class Yolo_tsn_recognizer():
             new_top5_results == new_result[:1]
             
         result_type_dict = acs.select_type_num(int(new_top5_results[0][0]))[0]
+        # 딕셔너리를 JSON 파일로 저장
+        with open('/AccidentFaultAI/recognizer/output/yolo_tsn_result.json', 'w', encoding='utf-8') as file:
+            json.dump(result_type_dict, file, ensure_ascii=False, indent=4)
+
         return result_type_dict
     
 

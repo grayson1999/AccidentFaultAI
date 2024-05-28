@@ -99,7 +99,9 @@
 |0.5|24.05.27|recognizer 제작|
 |0.5.1|24.05.27|incident_Type 컬럼 명 영어로 변경 및 모듈 대응|
 |0.5.2|24.05.27|yolo readme 추가|
-|0.5.3|24.05.28}yolo_tsn_model 테스트, detection filter 제작|
+|0.5.3|24.05.28|yolo_tsn_model 테스트, detection filter 제작|
+|0.6|24.05.28|yolo_tsn_recognizer 제작 및 class화|
+|0.6.1|24.05.28|single_tsn_recognizer class화 및 패키지화|
 
 
 ## 참고자료
