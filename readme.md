@@ -22,6 +22,8 @@
 2. [환경설정](#환경설정)
 3. [모델 정확도](#모델-정확도)
 4. [Single_TSN_model](#single_tsn_model)
+5. [Yolo_TSN_model]()
+6. [FastAPI]()
 5. [Version Control](#version-control)
 6. [참고자료](#참고자료)
 
@@ -87,7 +89,32 @@
     ```bash
     python ./recognizer/single_tsn_recognizer.py
     ```
-
+## Yolo_TSN_model
+- 경로 수정
+    ```python
+    ## ./recognizer/yolo_tsn_recognizer.py
+    config = '/AccidentFaultAI/model/TSN/best_model_0527/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
+    checkpoint = '/AccidentFaultAI/model/TSN/best_model_0527/best_model_0527.pth'
+    video = '/AccidentFaultAI/recognizer/demo_video/cc_5.mp4'
+    ```
+- run   
+    ```bash
+    python ./recognizer/yolo_tsn_recognizer.py
+    ```
+## FastAPI
+- run   
+    ```bash
+    python ./fastapi/videoRecognizerAPI.py
+    ```
+*  localhost:8000/(main)
+    * 간단한 video_upload 구현
+    
+*  localhost:8000/predict(predict)
+    * curl
+    ```bash
+    curl -X POST "http://127.0.0.1:8000/predict" -F "video=@C:/Users/Downloads/demo.mp4"
+    ```
+    * return → json
 ## Version Control
 
 | 버전       | 날짜      | 변경 내용                                |
