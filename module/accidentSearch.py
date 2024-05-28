@@ -10,6 +10,8 @@ class AccidentSearch():
         ##Key: AccidentObject,AccidentLocation,AccidentLocationCharacteristics,DirectionOfA,DirectionOfB,FaultRatioA,FaultRatioB,AccidentType
         return result
         
+    def get_all_data(self):
+        return pd.DataFrame(self.df)
 
 if __name__=="__main__":
     ads = AccidentSearch()

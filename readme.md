@@ -68,6 +68,7 @@
 |--------------|-----------------------|------------------|---------------------|-------------------|
 |single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|
 |single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|
+|yolo_tsn_model|TSN(best_model_0527)+yolov8n|22.1|47.2|31.8|
 
 ## Single_TSN_model
 - 경로 수정
@@ -98,6 +99,7 @@
 |0.5|24.05.27|recognizer 제작|
 |0.5.1|24.05.27|incident_Type 컬럼 명 영어로 변경 및 모듈 대응|
 |0.5.2|24.05.27|yolo readme 추가|
+|0.5.3|24.05.28}yolo_tsn_model 테스트, detection filter 제작|
 
 
 ## 참고자료
