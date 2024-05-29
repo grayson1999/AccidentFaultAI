@@ -5,33 +5,35 @@ sys.path.append('/AccidentFaultAI/')
 from module.accidentSearch import AccidentSearch
 
 # 설정 파일을 선택하고 인식기를 초기화합니다.
-config = '/AccidentFaultAI/model/TSN/best_model_0527/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
+config = '/AccidentFaultAI/model/TSN/best_model_0529/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
 config = Config.fromfile(config)
 
 # 로드할 체크포인트 파일을 설정합니다.
-checkpoint = '/AccidentFaultAI/model/TSN/best_model_0527/best_model_0527.pth'
+checkpoint = '/AccidentFaultAI/model/TSN/best_model_0529/best_model_0529.pth'
 
 # 인식기를 초기화합니다.
 model = init_recognizer(config, checkpoint, device='cuda:0')
 
 # 인식기를 사용하여 추론을 수행합니다.
 from operator import itemgetter
-
+count = 0
 test_count = 0
 test5_count = 0
 rate_count = 0
+over10_count = 0
 total_count = 0
 with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_test_mp4.txt", 'r', encoding='utf-8') as file:
     lines = file.readlines()
     total_count = len(lines)
 
     for line in lines:
+        count += 1
         video_name, video_label = line.split()
 
         # 예측할 비디오 파일 경로
         video = '/AccidentFaultAI/datasets/data/video_datasets/download_datas/test/'+video_name
         # 라벨 파일 경로
-        label = '/AccidentFaultAI/model/TSN/best_model_0527/index_map.txt'
+        label = '/AccidentFaultAI/model/index_map.txt'
 
         # 비디오에 대한 인식 결과를 얻습니다.
         results = inference_recognizer(model, video)
@@ -62,13 +64,13 @@ with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_t
         # print(f"result_type_dict: {result_type_dict}")
         # print(f"top_1_type_dict: {top_1_type_dict}")
 
-        # 상위 1개 가져오기
-        print("정답 :"+video_label,end="")
-        print(" | 비율 {}:{}".format(result_type_dict["과실비율A"],result_type_dict["과실비율B"]))
-        print("{}:{}".format(top_1_type_dict["과실비율A"],top_1_type_dict["과실비율B"]))
+        # # 상위 1개 가져오기
+        # print("정답 :"+video_label,end="")
+        # print(" | 비율 {}:{}".format(result_type_dict["FaultRatioA"],result_type_dict["FaultRatioB"]))
+        # print("{}:{}".format(top_1_type_dict["FaultRatioA"],top_1_type_dict["FaultRatioB"]))
 
         for result in results:
-            print(f'{result[0]}: ', result[1])
+            # print(f'{result[0]}: ', result[1])
             if int(video_label) == int(result[0]):
                 test5_count += 1
         
@@ -76,20 +78,34 @@ with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_t
         if int(results[0][0]) == int(video_label):
             test_count += 1
 
-        if int(result_type_dict["과실비율A"]) == int(top_1_type_dict["과실비율A"]):
+        if int(result_type_dict["FaultRatioA"]) == int(top_1_type_dict["FaultRatioA"]):
             rate_count += 1
+        
+        if int(top_1_type_dict["FaultRatioA"])-10 <= int(result_type_dict["FaultRatioA"]) <= int(top_1_type_dict["FaultRatioA"])+10:
+            over10_count += 1
+
+        # #debug
+        # print("{}<={}<={}".format(int(top_1_type_dict["FaultRatioA"])-10,int(result_type_dict["FaultRatioA"]),int(top_1_type_dict["FaultRatioA"])+10))
+        # print(int(top_1_type_dict["FaultRatioA"]))
+        # print(over10_count)
 
         #debug
         # print(test_count)
         # print(test5_count)
         # print(rate_count)
         # print(total_count)
+        
+        #진행
+        print("{}/{}".format(count,total_count))
             
 print("top_1 정확도 {}|{} - {}%".format(test_count,total_count,test_count/total_count*100))
 print("top_5 정확도 {}|{} - {}%".format(test5_count,total_count,test5_count/total_count*100))
 print("rate 정확도 {}|{} - {}%".format(rate_count,total_count,rate_count/total_count*100))
+print("over10 정확도 {}|{} - {}%".format(over10_count,total_count,over10_count/total_count*100))
 
 with open("/AccidentFaultAI/tester/single_tsn_tester_log.txt","a") as f:
     f.write("top_1 정확도 {}|{} - {}%\n".format(test_count,total_count,test_count/total_count*100))
-    f.write("top_5 정확도 {}|{} - {}%".format(test5_count,total_count,test5_count/total_count*100))
-    f.write("rate 정확도 {}|{} - {}%\n\n".format(rate_count,total_count,rate_count/total_count*100))
+    f.write("top_5 정확도 {}|{} - {}%\n".format(test5_count,total_count,test5_count/total_count*100))
+    f.write("rate 정확도 {}|{} - {}%\n".format(rate_count,total_count,rate_count/total_count*100))
+    f.write("over10 정확도 {}|{} - {}%\n\n".format(over10_count,total_count,over10_count/total_count*100))
+    

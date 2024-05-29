@@ -71,11 +71,12 @@
     ```
 
 ## 모델 정확도
-|     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |
-|--------------|-----------------------|------------------|---------------------|-------------------|
-|single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|
-|single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|
-|yolo_tsn_model|TSN(best_model_0527)+yolov8n|22.1|47.2|31.8|
+|     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |    ±10% error rate 정확도    |
+|--------------|-----------------------|------------------|---------------------|-------------------|-----------------------------|
+|single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|·|
+|single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|·|
+|yolo_tsn_model|TSN(best_model_0527)+yolov8n|22.1|47.2|31.8|·|
+|single_tsn_model|TSN(best_model_0529)|24.67|48.90|33.50|46.8|
 
 ## Single_TSN_model
 - 경로 수정
@@ -135,6 +136,8 @@
 |0.6|24.05.28|yolo_tsn_recognizer 제작 및 class화|
 |0.6.1|24.05.28|single_tsn_recognizer class화 및 패키지화|
 |0.7|24.05.28|fast api로 api 서버 제작| 
+|0.7.1|24.05.30|best_model_0529 테스트, ±10% error rate 정확도 테스터 제작|
+
 
 
 ## 참고자료

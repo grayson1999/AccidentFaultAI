@@ -1,5 +1,6 @@
 data/
 mmaction2/
 best_model_0527/
+best_model_0529/
 *.pt
 video_save/
