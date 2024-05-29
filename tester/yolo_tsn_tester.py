@@ -8,11 +8,11 @@ from module.yolov8.yolo_predict import Yolo_predect
 
 
 # 설정 파일을 선택하고 인식기를 초기화합니다.
-config = '/AccidentFaultAI/model/TSN/best_model_0527/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
+config = '/AccidentFaultAI/model/TSN/best_model_0529/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
 config = Config.fromfile(config)
 
 # 로드할 체크포인트 파일을 설정합니다.
-checkpoint = '/AccidentFaultAI/model/TSN/best_model_0527/best_model_0527.pth'
+checkpoint = '/AccidentFaultAI/model/TSN/best_model_0529/best_model_0529.pth'
 
 # 인식기를 초기화합니다.
 model = init_recognizer(config, checkpoint, device='cuda:0')
@@ -26,6 +26,7 @@ count = 0
 test_count = 0
 test5_count = 0
 rate_count = 0
+over10_count = 0
 total_count = 0
 with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_test_mp4.txt", 'r', encoding='utf-8') as file:
     lines = file.readlines()
@@ -107,18 +108,26 @@ with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_t
         if int(result_type_dict["FaultRatioA"]) == int(top_1_type_dict["FaultRatioA"]):
             rate_count += 1
 
+        if int(top_1_type_dict["FaultRatioA"])-10 <= int(result_type_dict["FaultRatioA"]) <= int(top_1_type_dict["FaultRatioA"])+10:
+            over10_count += 1
+
         #debug
         # print(test_count)
         # print(test5_count)
         # print(rate_count)
         # print(total_count)
 
-        print("-"*3+"진행률 {}/{}".format(count,total_count)+"-"*3)  
-        print("top_1 정확도 {}|{} - {}%".format(test_count,total_count,test_count/count*100))
-        print("top_5 정확도 {}|{} - {}%".format(test5_count,total_count,test5_count/count*100))
-        print("rate 정확도 {}|{} - {}%".format(rate_count,total_count,rate_count/count*100))
+        #진행도
+        print("{}/{}".format(count,total_count))
+
+
+print("top_1 정확도 {}|{} - {}%".format(test_count,total_count,test_count/count*100))
+print("top_5 정확도 {}|{} - {}%".format(test5_count,total_count,test5_count/count*100))
+print("rate 정확도 {}|{} - {}%".format(rate_count,total_count,rate_count/count*100))
+print("over10 정확도 {}|{} - {}%".format(over10_count,total_count,over10_count/total_count*100))
 
 with open("/AccidentFaultAI/tester/yolo_tsn_log.txt","a") as f:
     f.write("top_1 정확도 {}|{} - {}%\n".format(test_count,total_count,test_count/total_count*100))
     f.write("top_5 정확도 {}|{} - {}%\n".format(test5_count,total_count,test5_count/total_count*100))
     f.write("rate 정확도 {}|{} - {}%\n\n".format(rate_count,total_count,rate_count/total_count*100))
+    f.write("over10 정확도 {}|{} - {}%\n\n".format(over10_count,total_count,over10_count/total_count*100))
