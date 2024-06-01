@@ -71,14 +71,14 @@
     ```
 
 ## 모델 정확도
-|     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |    ±10% error rate 정확도    |
-|--------------|-----------------------|------------------|---------------------|-------------------|-----------------------------|
-|single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|·|
-|single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|·|
-|yolo_tsn_model|TSN(best_model_0527)+yolov8n|22.1|47.2|31.8|·|
-|single_tsn_model|TSN(best_model_0529)|24.67|48.90|33.50|46.8|
-|yolo_tsn_model|TSN(best_model_0529)+yolov8n|23.50|49.48|33.43|47.3|
-|single_tsn_model|TSN(best_model_0531)|21.50|45.36|30.63|44.92|
+|     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |    ±10% error rate 정확도    |    평균 코사인 유사도   |
+|--------------|-----------------------|------------------|---------------------|-------------------|-----------------------------|-------------------------|
+|single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|·|·|
+|single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|·|·|
+|yolo_tsn_model|TSN(best_model_0527)+yolov8n|22.1|47.2|31.8|·|·|
+|single_tsn_model|TSN(best_model_0529)|24.67|48.90|33.50|46.83|81.54|
+|yolo_tsn_model|TSN(best_model_0529)+yolov8n|23.50|49.48|33.43|47.3|81.58|
+|single_tsn_model|TSN(best_model_0531)|21.50|45.36|30.63|44.92|·|
 
 ## Single_TSN_model
 - 경로 수정
@@ -141,6 +141,7 @@
 |0.7.1|24.05.30|best_model_0529 테스트, ±10% error rate 정확도 테스터 제작|
 |0.7.2|24.05.30|TSN(best_model_0529)+yolov8n 정확도 테스트|
 |0.7.3|24.06.01|TSN(best_model_0531) 정확도 테스트|
+|0.8.0|24.06.02|코사인 유사도 test 모듈 제작|
 
 
 
