@@ -1,11 +1,20 @@
 from mmaction.apis import inference_recognizer, init_recognizer
 from mmengine import Config
+import numpy as np
 import sys
 sys.path.append('/AccidentFaultAI/')
 from module.accidentSearch import AccidentSearch
 sys.path.append('/AccidentFaultAI/yolov8')
 from module.yolov8.yolo_predict import Yolo_predect
 
+def cosine_similarity(A, B):
+    A = np.array(A)
+    B = np.array(B)
+    dot_product = np.dot(A, B)
+    norm_A = np.linalg.norm(A)
+    norm_B = np.linalg.norm(B)
+    cosine_sim = dot_product / (norm_A * norm_B)
+    return cosine_sim
 
 # 설정 파일을 선택하고 인식기를 초기화합니다.
 config = '/AccidentFaultAI/model/TSN/best_model_0529/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
@@ -28,6 +37,7 @@ test5_count = 0
 rate_count = 0
 over10_count = 0
 total_count = 0
+cosine_similarities = []
 with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_test_mp4.txt", 'r', encoding='utf-8') as file:
     lines = file.readlines()
     total_count = len(lines)
@@ -111,6 +121,12 @@ with open("/AccidentFaultAI/datasets/data/video_datasets/download_datas/custom_t
         if int(top_1_type_dict["FaultRatioA"])-10 <= int(result_type_dict["FaultRatioA"]) <= int(top_1_type_dict["FaultRatioA"])+10:
             over10_count += 1
 
+        # 코사인 유사도 계산
+        ground_truth_ratio = [int(result_type_dict["FaultRatioA"]), int(result_type_dict["FaultRatioB"])]
+        predicted_ratio = [int(top_1_type_dict["FaultRatioA"]), int(top_1_type_dict["FaultRatioB"])]
+        cosine_sim = cosine_similarity(ground_truth_ratio, predicted_ratio)
+        cosine_similarities.append(cosine_sim)
+
         #debug
         # print(test_count)
         # print(test5_count)
@@ -125,9 +141,12 @@ print("top_1 정확도 {}|{} - {}%".format(test_count,total_count,test_count/cou
 print("top_5 정확도 {}|{} - {}%".format(test5_count,total_count,test5_count/count*100))
 print("rate 정확도 {}|{} - {}%".format(rate_count,total_count,rate_count/count*100))
 print("over10 정확도 {}|{} - {}%".format(over10_count,total_count,over10_count/total_count*100))
+average_cosine_similarity = sum(cosine_similarities) / total_count
+print("평균 코사인 유사도: {:.4f}".format(average_cosine_similarity))
 
 with open("/AccidentFaultAI/tester/yolo_tsn_log.txt","a") as f:
     f.write("top_1 정확도 {}|{} - {}%\n".format(test_count,total_count,test_count/total_count*100))
     f.write("top_5 정확도 {}|{} - {}%\n".format(test5_count,total_count,test5_count/total_count*100))
     f.write("rate 정확도 {}|{} - {}%\n\n".format(rate_count,total_count,rate_count/total_count*100))
     f.write("over10 정확도 {}|{} - {}%\n\n".format(over10_count,total_count,over10_count/total_count*100))
+    f.write("평균 코사인 유사도: {:.4f}\n".format(average_cosine_similarity))
