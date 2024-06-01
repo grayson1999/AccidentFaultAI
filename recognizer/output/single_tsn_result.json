@@ -1,10 +1,10 @@
 {
-    "AccidentObject": "차대차",
-    "AccidentLocation": "직선 도로",
-    "AccidentLocationCharacteristics": "차로변경(진로변경)",
-    "DirectionOfA": "후행 직진",
-    "DirectionOfB": "선행 진로 변경",
-    "FaultRatioA": 30,
-    "FaultRatioB": 70,
-    "AccidentType": 11
+    "AccidentObject": "고속도로",
+    "AccidentLocation": "고속도로(자동차전용도로)포함",
+    "AccidentLocationCharacteristics": "추돌",
+    "DirectionOfA": "선행 차량 추돌",
+    "DirectionOfB": "선행직진",
+    "FaultRatioA": 100,
+    "FaultRatioB": 0,
+    "AccidentType": 194
 }

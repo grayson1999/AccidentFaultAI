@@ -5,11 +5,11 @@ sys.path.append('/AccidentFaultAI/')
 from module.accidentSearch import AccidentSearch
 
 # 설정 파일을 선택하고 인식기를 초기화합니다.
-config = '/AccidentFaultAI/model/TSN/best_model_0529/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
+config = '/AccidentFaultAI/model/TSN/best_model_0531/tsn_imagenet-pretrained-r50_8xb32-1x1x3-100e_kinetics400-rgb.py'
 config = Config.fromfile(config)
 
 # 로드할 체크포인트 파일을 설정합니다.
-checkpoint = '/AccidentFaultAI/model/TSN/best_model_0529/best_model_0529.pth'
+checkpoint = '/AccidentFaultAI/model/TSN/best_model_0531/best_model_0531.pth'
 
 # 인식기를 초기화합니다.
 model = init_recognizer(config, checkpoint, device='cuda:0')
