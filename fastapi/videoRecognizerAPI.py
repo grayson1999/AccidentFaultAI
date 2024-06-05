@@ -55,4 +55,4 @@ async def predict(video: UploadFile = File(...)):
 # FastAPI 애플리케이션 실행
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=9904)

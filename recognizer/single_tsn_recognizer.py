@@ -16,7 +16,7 @@ class Single_tsn_recognizer():
         checkpoint = '/AccidentFaultAI/model/TSN/best_model_0529/best_model_0529.pth'
 
         # 인식기를 초기화합니다.
-        self.model = init_recognizer(config, checkpoint, device='cuda:0')
+        self.model = init_recognizer(config, checkpoint, device='cpu')
 
     def predict(self, video_path):
         # 인식기를 사용하여 추론을 수행합니다.
