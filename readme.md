@@ -1,4 +1,20 @@
-# AI-based traffic accident negligence measurement program
+# AI-based Traffic Accident Negligence Measurement Program
+
+![Cosine Similarity Accuracy](https://img.shields.io/badge/코사인유사도%20Accuracy-81.58%25-brightgreen)
+![Top-5 Accuracy](https://img.shields.io/badge/Top--5%20Accuracy-49.48%25-blue)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Python](https://img.shields.io/badge/Python-blue?logo=python)
+![Django](https://img.shields.io/badge/Django-green?logo=django)
+![FastAPI](https://img.shields.io/badge/FastAPI-green?logo=fastapi)
+![PyTorch](https://img.shields.io/badge/PyTorch-red?logo=pytorch)
+![mmaction](https://img.shields.io/badge/mmaction-lightgrey?logo=opencollective)
+![YOLOv8](https://img.shields.io/badge/YOLOv8-orange?logo=yolo)
+![MySQL](https://img.shields.io/badge/MySQL-blue?logo=mysql)
+![Docker](https://img.shields.io/badge/Docker-blue?logo=docker)
+
+<p align="center">
+    <img src="" alt="AI-based Traffic Accident Negligence Measurement Program" width="250px">
+</p>
 
 ## 프로젝트의 목적
 
