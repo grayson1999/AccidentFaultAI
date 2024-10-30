@@ -1,5 +1,9 @@
 # AI-based Traffic Accident Negligence Measurement Program
 
+<p align="center">
+    <img src="http://203.252.230.246:81/static/img/server_img/sp-image.jpg" alt="AI-based Traffic Accident Negligence Measurement Program" width="250px">
+</p>
+
 ![Cosine Similarity Accuracy](https://img.shields.io/badge/코사인유사도%20Accuracy-81.58%25-brightgreen)
 ![Top-5 Accuracy](https://img.shields.io/badge/Top--5%20Accuracy-49.48%25-blue)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
@@ -12,25 +16,39 @@
 ![MySQL](https://img.shields.io/badge/MySQL-blue?logo=mysql)
 ![Docker](https://img.shields.io/badge/Docker-blue?logo=docker)
 
-<p align="center">
-    <img src="" alt="AI-based Traffic Accident Negligence Measurement Program" width="250px">
-</p>
 
-## 프로젝트의 목적
+> 주어진 비디오를 입력으로 받아 객체 감지 및 분석을 통해 사전에 정의된 435가지 상황 데이터 중 가장 유사한 상황을 예측하여 과실 비율을 측정하는 프로그램입니다.
 
-- 주어진 비디오를 입력으로 받아들여 객체 감지를 수행하고, 이를 기반으로 사전에 정의된 435가지 상황 데이터 중에서 가장 유사한 상황을 예측하여 과실 비율을 측정
-    
-    ```mermaid
-    graph LR
-    nID1[video];
-    nID2[YOLOv8\ndetection];
-    nID3[Temporal Segment Networks\nrecognizor];
-    nID4[text\nnegligence rate];
-    nID1--mp4-->nID2--dict-->nID3--set-->nID4
-    ```
+---
 
-* [YOLOv8 detection 모델]()
-* [TSN (Temporal Segment Networks)](https://github.com/grayson1999/TSNAccidentAnalysis)
+## 프로젝트 소개
+
+이 프로젝트는 교통사고 영상을 입력 받아 **사전에 정의된 435가지 사고 상황 중 가장 유사한 상황을 예측하고, 과실 비율을 측정**하는 AI 기반 분석 프로그램입니다. 사용자는 비디오를 업로드하면 객체 감지 및 상황 인식을 통해 교통사고 과실 분석 결과를 받아볼 수 있습니다. 
+
+이 프로그램은 YOLOv8 객체 탐지와 Temporal Segment Networks(TSN)를 사용해 실시간으로 교통사고 데이터를 분석하여 높은 정확도의 사고 상황 예측을 가능하게 합니다. YOLOv8는 고속 객체 탐지에 최적화되어 사고 영상에서 표지판, 횡단보도 등을 빠르게 감지하는 데 적합하며, TSN은 교통사고와 같은 연속적인 이벤트를 시간에 따라 분석하는 데 강력한 성능을 발휘합니다. 이러한 기술의 조합을 통해 상황 인식 및 과실 비율 예측의 정확도를 높일 수 있었습니다.
+
+프로젝트 진행 중 직면했던 주요 문제는 **다양한 사고 상황에서 객체 인식의 일관성을 유지하는 것**과 **시간에 따른 사고 맥락을 정확하게 해석하는 것**이었습니다. 
+
+> [TSN (Temporal Segment Networks) 학습 가이드](https://github.com/grayson1999/TSNAccidentAnalysis)
+
+```mermaid
+graph LR
+nID1[video];
+nID2[YOLOv8\ndetection];
+nID3[Temporal Segment Networks\nrecognizor];
+nID4[text\nnegligence rate];
+nID1--mp4-->nID2--dict-->nID3--set-->nID4
+```
+
+---
+
+## 주요 기술 스택
+
+- **YOLOv8**: 고속 객체 탐지에 최적화된 모델로, 사고 영상 내 차량, 보행자 등 객체를 빠르게 감지하여 사고 상황 분석에 활용됩니다.
+- **TSN (Temporal Segment Networks)**: 시간에 따른 연속적 이벤트를 분석하는 네트워크로, 교통사고와 같은 상황 인식에 강점을 가지고 있어 사고 맥락을 정확하게 해석할 수 있습니다.
+- **FastAPI**: 빠르고 간편한 API 서버 구성을 위한 프레임워크로, RESTful API 형태로 과실 비율 분석 결과를 제공합니다.
+- **Docker**: 환경 구성을 일관되게 관리할 수 있도록 하여 모델 배포 및 실행 환경 설정을 효율화합니다.
+
 
 
 ## 목차
@@ -43,6 +61,10 @@
 5. [Version Control](#version-control)
 6. [참고자료](#참고자료)
 
+## 요구 사항
+- Docker 및 Python
+- 필요 패키지 목록은 `requirements.txt`에 명시
+
 ## 데이터 설명
 
 - [AI-Hub](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=&topMenu=&aihubDataSe=data&dataSetSn=597)
@@ -52,7 +74,8 @@
     - 데이터 사고유형별 index
     <br>[Incident_Type_Classification_Table.csv](./files/Incident_Type_Classification_Table.csv)
 
-## 환경설정
+## 설치 및 실행
+### 환경설정
 - docker 빌드
     ```bash
     # 버전 수정
@@ -86,17 +109,7 @@
     pip install jinja2
     ```
 
-## 모델 정확도
-|     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |    ±10% error rate 정확도    |    평균 코사인 유사도   |
-|--------------|-----------------------|------------------|---------------------|-------------------|-----------------------------|-------------------------|
-|single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|·|·|
-|single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|·|·|
-|yolo_tsn_model|TSN(best_model_0527)+yolov8n|22.1|47.2|31.8|·|·|
-|single_tsn_model|TSN(best_model_0529)|24.67|48.90|33.50|46.83|81.54|
-|yolo_tsn_model|TSN(best_model_0529)+yolov8n|23.50|49.48|33.43|47.3|81.58|
-|single_tsn_model|TSN(best_model_0531)|21.50|45.36|30.63|44.92|·|
-
-## Single_TSN_model
+### Single_TSN_model
 - 경로 수정
     ```python
     ## ./recognizer/single_tsn_recognizer.py
@@ -108,7 +121,7 @@
     ```bash
     python ./recognizer/single_tsn_recognizer.py
     ```
-## Yolo_TSN_model
+### Yolo_TSN_model
 - 경로 수정
     ```python
     ## ./recognizer/yolo_tsn_recognizer.py
@@ -120,20 +133,67 @@
     ```bash
     python ./recognizer/yolo_tsn_recognizer.py
     ```
-## FastAPI
+### FastAPI
 - run   
     ```bash
     python ./fastapi/videoRecognizerAPI.py
     ```
-*  localhost:8000/(main)
-    * 간단한 video_upload 구현
+ 
+## API 주소
+
+- **API 엔드포인트**:
+    - `localhost:8000/`: 메인 페이지로, 간단한 비디오 업로드 기능 구현
+    - `localhost:8000/predict`: 비디오 입력에 대한 과실 예측 결과를 반환하는 엔드포인트
     
-*  localhost:8000/predict(predict)
-    * curl
     ```bash
-    curl -X POST "http://127.0.0.1:8000/predict" -F "video=@C:/Users/Downloads/demo.mp4"
+    curl -X POST "<http://127.0.0.1:8000/predict>" -F "video=@C:/Users/Downloads/demo.mp4"
+    
     ```
-    * return → json
+    
+    - **응답 형식**: JSON
+
+## 아키텍처 (디렉토리 구조 등)
+
+- `recognizer/`: TSN 및 YOLO 기반 인식 모듈
+- `model/`: 학습된 모델 파일 및 구성
+- `docker/`: Docker 설정 파일
+
+## 모델 정확도
+|     모듈     |      모델 설명          |  top_1 정확도    |     top_5 정확도    |     rate 정확도    |    ±10% error rate 정확도    |    평균 코사인 유사도   |
+|--------------|-----------------------|------------------|---------------------|-------------------|-----------------------------|-------------------------|
+|single_tsn_model|TSN(best_model_0522)|20.6|·|29.9|·|·|
+|single_tsn_model|TSN(best_model_0527)|23.0|46.8|32.0|·|·|
+|yolo_tsn_model|TSN(best_model_0527)+yolov8n|22.1|47.2|31.8|·|·|
+|single_tsn_model|TSN(best_model_0529)|24.67|48.90|33.50|46.83|81.54|
+|yolo_tsn_model|TSN(best_model_0529)+yolov8n|23.50|49.48|33.43|47.3|81.58|
+|single_tsn_model|TSN(best_model_0531)|21.50|45.36|30.63|44.92|·|
+
+### 테스트
+
+- 모델 성능 평가
+    
+    
+    | 모듈 | 모델 설명 | top_1 정확도 | top_5 정확도 | rate 정확도 | ±10% error rate 정확도 | 평균 코사인 유사도 |
+    | --- | --- | --- | --- | --- | --- | --- |
+    | single_tsn_model | TSN(best_model_0522) | 20.6 | · | 29.9 | · | · |
+    | single_tsn_model | TSN(best_model_0527) | 23.0 | 46.8 | 32.0 | · | · |
+    | yolo_tsn_model | TSN(best_model_0527)+yolov8n | 22.1 | 47.2 | 31.8 | · | · |
+    | single_tsn_model | TSN(best_model_0529) | 24.67 | 48.90 | 33.50 | 46.83 | 81.54 |
+    | yolo_tsn_model | TSN(best_model_0529)+yolov8n | 23.50 | 49.48 | 33.43 | 47.3 | 81.58 |
+    | single_tsn_model | TSN(best_model_0531) | 21.50 | 45.36 | 30.63 | 44.92 | · |
+
+
+- 테스트 코드 실행
+
+```bash
+# single_tsn_tester 실행 및 로그 파일 생성
+python ./tester/single_tsn_tester.py > single_tsn_tester_log.txt
+
+# yolo_tsn_tester 실행 및 로그 파일 생성
+python ./tester/yolo_tsn_tester.py > yolo_tsn_log.txt
+```
+
+
 ## Version Control
 
 | 버전       | 날짜      | 변경 내용                                |
@@ -163,14 +223,10 @@
 
 ## 참고자료
 
-- Object Detection
-    
-    [yolo v8 car crash detection | road accident detection yolo v8 | car crash detection project](https://www.youtube.com/watch?v=Hk2lGL1_EEg&t=263s)
-    
-    [GitHub - freedomwebtech/yolov8-vehicle-crash-detection](https://github.com/freedomwebtech/yolov8-vehicle-crash-detection/tree/main)
-    
-    [GitHub - shubhankar-shandilya-india/Accident-Detection-Model: Accident Detection Model using Deep Learning, OpenCV, Machine Learning, Artificial Intelligence.](https://github.com/shubhankar-shandilya-india/Accident-Detection-Model/tree/master)
-    
-    [YOLOv8 커스텀 데이터 학습하기](https://www.youtube.com/watch?v=em_lOAp8DJE)
-    
-    [YOLO v5 커스텀 학습 튜토리얼](https://www.youtube.com/watch?v=T0DO1C8uYP8)
+### Object Detection 관련 자료
+- [YOLO v8 Car Crash Detection | Road Accident Detection Project (YouTube)](https://www.youtube.com/watch?v=Hk2lGL1_EEg&t=263s)
+- [GitHub Repository - freedomwebtech/yolov8-vehicle-crash-detection](https://github.com/freedomwebtech/yolov8-vehicle-crash-detection/tree/main)
+- [GitHub Repository - shubhankar-shandilya-india/Accident-Detection-Model: Accident Detection Model using Deep Learning, OpenCV, Machine Learning, AI](https://github.com/shubhankar-shandilya-india/Accident-Detection-Model/tree/master)
+- [YOLOv8 Custom Data Training Tutorial (YouTube)](https://www.youtube.com/watch?v=em_lOAp8DJE)
+- [YOLO v5 Custom Training Tutorial (YouTube)](https://www.youtube.com/watch?v=T0DO1C8uYP8)
+
