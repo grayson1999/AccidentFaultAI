@@ -64,7 +64,8 @@ nID1--mp4-->nID2--dict-->nID3--set-->nID4
 
 ## 요구 사항
 - Docker 및 Python
-- 필요 패키지 목록은 `requirements.txt`에 명시
+- NVIDIA 그래픽카드 (VRAM 6GB 이상)
+- 필요 패키지 목록은 requirements.txt에 명시
 
 ## 데이터 설명
 
