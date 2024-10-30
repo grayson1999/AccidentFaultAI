@@ -1,7 +1,7 @@
 # AI-based Traffic Accident Negligence Measurement Program
 
 <p align="center">
-    <img src="http://203.252.230.246:81/static/img/server_img/sp-image.jpg" alt="AI-based Traffic Accident Negligence Measurement Program" width="250px">
+    <img src="asset/videoframe_6882.png" alt="AI-based Traffic Accident Negligence Measurement Program" width="250px">
 </p>
 
 ![Cosine Similarity Accuracy](https://img.shields.io/badge/코사인유사도%20Accuracy-81.58%25-brightgreen)
