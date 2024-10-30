@@ -1,9 +1,4 @@
 # AI-based Traffic Accident Negligence Measurement Program
-
-<p align="center">
-    <img src="asset/videoframe_6882.png" alt="AI-based Traffic Accident Negligence Measurement Program" width="250px">
-</p>
-
 ![Cosine Similarity Accuracy](https://img.shields.io/badge/코사인유사도%20Accuracy-81.58%25-brightgreen)
 ![Top-5 Accuracy](https://img.shields.io/badge/Top--5%20Accuracy-49.48%25-blue)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
@@ -15,6 +10,11 @@
 ![YOLOv8](https://img.shields.io/badge/YOLOv8-orange?logo=yolo)
 ![MySQL](https://img.shields.io/badge/MySQL-blue?logo=mysql)
 ![Docker](https://img.shields.io/badge/Docker-blue?logo=docker)
+
+<p align="center">
+    <img src="asset/videoframe_6882.png" alt="AI-based Traffic Accident Negligence Measurement Program" width="300px">
+</p>
+
 
 
 > 주어진 비디오를 입력으로 받아 객체 감지 및 분석을 통해 사전에 정의된 435가지 상황 데이터 중 가장 유사한 상황을 예측하여 과실 비율을 측정하는 프로그램입니다.
