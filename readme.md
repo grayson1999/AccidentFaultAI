@@ -60,9 +60,7 @@ nID1--mp4-->nID2--dict-->nID3--set-->nID4
 11. [Version Control](#version-control)
 12. [참고자료](#참고자료)
 
----
 
-이 목차는 각 항목에 직접 접근할 수 있도록 구조화되어 있어, 가독성과 탐색이 용이할 것입니다.
 
 ## 요구 사항
 - Docker 및 Python
